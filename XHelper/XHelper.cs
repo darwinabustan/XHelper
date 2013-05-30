@@ -25,7 +25,13 @@ namespace XHelper
         public const int DEFAULT_FILE_DIALOG_FILTER_INDEX = 3;
         public string CurrentFile;
         public bool IsTextChanged;
+
+        // for 'Find' function
         public XFind xFind;
+        List<int> positionsList;
+        String searchTerm;
+        Boolean matchCase;
+        int currentIndex;
 
         public XHelper()
         {
@@ -35,6 +41,7 @@ namespace XHelper
             this.IsTextChanged = false;
             XHelperTextUpdate();
             xFind = null;
+            searchTerm = null;
         }
 
         #region File Menu
@@ -547,35 +554,95 @@ namespace XHelper
             {
                 xFind = new XFind();
                 xFind.FindNext += new FindNextEventHandler(menuEditFindNext_Click);
+                xFind.Cancel += new CancelEventHandler(findCancel_Click);
+                xFind.Close += new CloseEventHandler(findClose_Click);
             }
             xFind.Show();
         }
 
         private void menuEditFindNext_Click(object sender, EventArgs e)
         {
-            int currentIndex;
-            int currentLength;
-            currentIndex = textData.SelectionStart;
-            currentLength = textData.SelectedText.Length;
-            textData.Focus();
-            if (xFind != null)
+            if (xFind == null) { return; }
+
+            // Build new index if first time clicked or search term / case changed
+            if (searchTerm == null || searchTerm != xFind.FindString || matchCase != xFind.MatchCase)
             {
-                currentLength = xFind.FindString.Length;
-                if(xFind.SearchDown)
+                searchTerm = xFind.FindString;
+                matchCase = xFind.MatchCase;
+
+                int searchIndex = 0;
+                int foundIndex = 0;
+                positionsList = new List<int>();
+
+                while (searchIndex + searchTerm.Length <= textData.Text.Length)
                 {
-                    if(xFind.MatchCase)
+                    // Get index of next occurrence of search term
+                    if (matchCase)
                     {
-                        currentIndex = textData.Text.Substring(currentIndex + currentLength, textData.Text.Length - currentIndex - currentLength).IndexOf(xFind.FindString);
+                        foundIndex = textData.Text.IndexOf(searchTerm, searchIndex);
                     }
                     else
                     {
-                        currentIndex = textData.Text.ToLower().Substring(currentIndex + currentLength, textData.Text.Length - currentIndex - currentLength).IndexOf(xFind.FindString.ToLower());
+                        foundIndex = textData.Text.ToLower().IndexOf(searchTerm.ToLower(), searchIndex);
                     }
+
+                    // Add any occurence to positionsList
+                    if (foundIndex == -1)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        positionsList.Add(foundIndex);
+                        searchIndex = foundIndex + searchTerm.Length;
+                    }
+
                 }
-                else
-                {
-                }
-                textData.Select(currentIndex,currentLength);
+
+                // reset pointer to display first/last occurence in list
+                currentIndex = 0;
+
+            }
+
+            // If positions list empty, display warning
+            if (positionsList.Count == 0)
+            {
+                MessageBox.Show("Cannot find '" + searchTerm + "' in this file!");
+                return;
+            }
+
+            // Select next found item
+            textData.Focus();
+
+            if (xFind.SearchDown)
+            {
+                textData.Select(positionsList[currentIndex], xFind.FindString.Length); // select text
+                if (currentIndex == positionsList.Count - 1) { currentIndex = 0; } else { currentIndex++; } // move down one position or cycle to start
+            }
+            else
+            {
+                if (currentIndex == 0) { currentIndex = positionsList.Count - 1; } else { currentIndex--; } // move up one position or cycle to end
+                textData.Select(positionsList[currentIndex], xFind.FindString.Length); // select text
+            }
+
+        }
+
+
+        private void findCancel_Click(object sender, EventArgs e)
+        {
+            // Hide it to save settings for later - or could just call xFind = null to delete it!
+            if (xFind != null)
+            {
+                xFind.Hide();
+            }
+        }
+
+        private void findClose_Click(object sender, EventArgs e)
+        {
+            if (xFind != null)
+            {
+                //xFind = null;
+                xFind.Hide();
             }
         }
         

@@ -16,6 +16,9 @@ namespace XHelper
 
     public delegate void CancelEventHandler(object sender, EventArgs e);
 
+    public delegate void CloseEventHandler(object sender, EventArgs e);
+
+
     public partial class XFind : Form
     {
 
@@ -60,6 +63,7 @@ namespace XHelper
 
         public event FindNextEventHandler FindNext;
         public event CancelEventHandler Cancel;
+        public event CloseEventHandler Close;
 
         public XFind()
         {
@@ -85,6 +89,11 @@ namespace XHelper
             }
         }
 
+        private void formClose_Click(object sender, EventArgs e)
+        {
+            Close(sender, e);
+        }
+
         public void FindResults(string textToSearch)
         {
             int index = textToSearch.IndexOf(textFind.Text);
@@ -94,5 +103,6 @@ namespace XHelper
                 FindResults(textToSearch.Substring(index + textFind.Text.Length));
             }
         }
+
     }
 }
