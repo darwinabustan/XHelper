@@ -46,7 +46,6 @@
             this.menuEditDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripSeparator();
             this.menuEditFind = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuEditFindNext = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripSeparator();
             this.menuEditSelectAll = new System.Windows.Forms.ToolStripMenuItem();
             this.menuEditTimeDate = new System.Windows.Forms.ToolStripMenuItem();
@@ -87,7 +86,8 @@
             this.menuHelp});
             this.menuStripXHelper.Location = new System.Drawing.Point(0, 0);
             this.menuStripXHelper.Name = "menuStripXHelper";
-            this.menuStripXHelper.Size = new System.Drawing.Size(1262, 28);
+            this.menuStripXHelper.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.menuStripXHelper.Size = new System.Drawing.Size(946, 24);
             this.menuStripXHelper.TabIndex = 2;
             this.menuStripXHelper.Text = "menuStrip1";
             // 
@@ -102,14 +102,14 @@
             this.toolStripMenuItem3,
             this.menuFileExit});
             this.menuFile.Name = "menuFile";
-            this.menuFile.Size = new System.Drawing.Size(44, 24);
+            this.menuFile.Size = new System.Drawing.Size(37, 20);
             this.menuFile.Text = "File";
             // 
             // menuFileNew
             // 
             this.menuFileNew.Name = "menuFileNew";
             this.menuFileNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.menuFileNew.Size = new System.Drawing.Size(176, 24);
+            this.menuFileNew.Size = new System.Drawing.Size(155, 22);
             this.menuFileNew.Text = "New";
             this.menuFileNew.Click += new System.EventHandler(this.menuFileNew_Click);
             // 
@@ -117,39 +117,39 @@
             // 
             this.menuFileOpen.Name = "menuFileOpen";
             this.menuFileOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.menuFileOpen.Size = new System.Drawing.Size(176, 24);
+            this.menuFileOpen.Size = new System.Drawing.Size(155, 22);
             this.menuFileOpen.Text = "Open...";
             this.menuFileOpen.Click += new System.EventHandler(this.menuFileOpen_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(173, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 6);
             // 
             // menuFileSave
             // 
             this.menuFileSave.Name = "menuFileSave";
             this.menuFileSave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.menuFileSave.Size = new System.Drawing.Size(176, 24);
+            this.menuFileSave.Size = new System.Drawing.Size(155, 22);
             this.menuFileSave.Text = "Save";
             this.menuFileSave.Click += new System.EventHandler(this.menuFileSave_Click);
             // 
             // menuFileSaveAs
             // 
             this.menuFileSaveAs.Name = "menuFileSaveAs";
-            this.menuFileSaveAs.Size = new System.Drawing.Size(176, 24);
+            this.menuFileSaveAs.Size = new System.Drawing.Size(155, 22);
             this.menuFileSaveAs.Text = "Save As...";
             this.menuFileSaveAs.Click += new System.EventHandler(this.menuFileSaveAs_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(173, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(152, 6);
             // 
             // menuFileExit
             // 
             this.menuFileExit.Name = "menuFileExit";
-            this.menuFileExit.Size = new System.Drawing.Size(176, 24);
+            this.menuFileExit.Size = new System.Drawing.Size(155, 22);
             this.menuFileExit.Text = "Exit";
             this.menuFileExit.Click += new System.EventHandler(this.menuFileExit_Click);
             // 
@@ -164,89 +164,81 @@
             this.menuEditDelete,
             this.toolStripMenuItem7,
             this.menuEditFind,
-            this.menuEditFindNext,
             this.toolStripMenuItem8,
             this.menuEditSelectAll,
             this.menuEditTimeDate});
             this.menuEdit.Name = "menuEdit";
-            this.menuEdit.Size = new System.Drawing.Size(47, 24);
+            this.menuEdit.Size = new System.Drawing.Size(39, 20);
             this.menuEdit.Text = "Edit";
             // 
             // menuEditUndo
             // 
             this.menuEditUndo.Name = "menuEditUndo";
-            this.menuEditUndo.Size = new System.Drawing.Size(149, 24);
+            this.menuEditUndo.Size = new System.Drawing.Size(152, 22);
             this.menuEditUndo.Text = "Undo";
             this.menuEditUndo.Click += new System.EventHandler(this.menuEditUndo_Click);
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(146, 6);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(149, 6);
             // 
             // menuEditCut
             // 
             this.menuEditCut.Name = "menuEditCut";
-            this.menuEditCut.Size = new System.Drawing.Size(149, 24);
+            this.menuEditCut.Size = new System.Drawing.Size(152, 22);
             this.menuEditCut.Text = "Cut";
             this.menuEditCut.Click += new System.EventHandler(this.menuEditCut_Click);
             // 
             // menuEditCopy
             // 
             this.menuEditCopy.Name = "menuEditCopy";
-            this.menuEditCopy.Size = new System.Drawing.Size(149, 24);
+            this.menuEditCopy.Size = new System.Drawing.Size(152, 22);
             this.menuEditCopy.Text = "Copy";
             this.menuEditCopy.Click += new System.EventHandler(this.menuEditCopy_Click);
             // 
             // menuEditPaste
             // 
             this.menuEditPaste.Name = "menuEditPaste";
-            this.menuEditPaste.Size = new System.Drawing.Size(149, 24);
+            this.menuEditPaste.Size = new System.Drawing.Size(152, 22);
             this.menuEditPaste.Text = "Paste";
             this.menuEditPaste.Click += new System.EventHandler(this.menuEditPaste_Click);
             // 
             // menuEditDelete
             // 
             this.menuEditDelete.Name = "menuEditDelete";
-            this.menuEditDelete.Size = new System.Drawing.Size(149, 24);
+            this.menuEditDelete.Size = new System.Drawing.Size(152, 22);
             this.menuEditDelete.Text = "Delete";
             this.menuEditDelete.Click += new System.EventHandler(this.menuEditDelete_Click);
             // 
             // toolStripMenuItem7
             // 
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(146, 6);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(149, 6);
             // 
             // menuEditFind
             // 
             this.menuEditFind.Name = "menuEditFind";
-            this.menuEditFind.Size = new System.Drawing.Size(149, 24);
+            this.menuEditFind.Size = new System.Drawing.Size(152, 22);
             this.menuEditFind.Text = "Find...";
             this.menuEditFind.Click += new System.EventHandler(this.menuEditFind_Click);
-            // 
-            // menuEditFindNext
-            // 
-            this.menuEditFindNext.Name = "menuEditFindNext";
-            this.menuEditFindNext.Size = new System.Drawing.Size(149, 24);
-            this.menuEditFindNext.Text = "Find Next";
-            this.menuEditFindNext.Click += new System.EventHandler(this.menuEditFindNext_Click);
             // 
             // toolStripMenuItem8
             // 
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(146, 6);
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(149, 6);
             // 
             // menuEditSelectAll
             // 
             this.menuEditSelectAll.Name = "menuEditSelectAll";
-            this.menuEditSelectAll.Size = new System.Drawing.Size(149, 24);
+            this.menuEditSelectAll.Size = new System.Drawing.Size(152, 22);
             this.menuEditSelectAll.Text = "Select All";
             this.menuEditSelectAll.Click += new System.EventHandler(this.menuEditSelectAll_Click);
             // 
             // menuEditTimeDate
             // 
             this.menuEditTimeDate.Name = "menuEditTimeDate";
-            this.menuEditTimeDate.Size = new System.Drawing.Size(149, 24);
+            this.menuEditTimeDate.Size = new System.Drawing.Size(152, 22);
             this.menuEditTimeDate.Text = "Time/Date";
             this.menuEditTimeDate.Click += new System.EventHandler(this.menuEditTimeDate_Click);
             // 
@@ -264,7 +256,7 @@
             this.menuToolsTestXPath,
             this.menuToolsSchemaValidate});
             this.menuTools.Name = "menuTools";
-            this.menuTools.Size = new System.Drawing.Size(57, 24);
+            this.menuTools.Size = new System.Drawing.Size(48, 20);
             this.menuTools.Text = "Tools";
             // 
             // menuToolsDecode
@@ -274,27 +266,27 @@
             this.menuToolsDecodeBase64,
             this.menuToolsDecodeHTML});
             this.menuToolsDecode.Name = "menuToolsDecode";
-            this.menuToolsDecode.Size = new System.Drawing.Size(198, 24);
+            this.menuToolsDecode.Size = new System.Drawing.Size(170, 22);
             this.menuToolsDecode.Text = "Decode";
             // 
             // menuToolsDecodeURL
             // 
             this.menuToolsDecodeURL.Name = "menuToolsDecodeURL";
-            this.menuToolsDecodeURL.Size = new System.Drawing.Size(129, 24);
+            this.menuToolsDecodeURL.Size = new System.Drawing.Size(113, 22);
             this.menuToolsDecodeURL.Text = "URL";
             this.menuToolsDecodeURL.Click += new System.EventHandler(this.menuToolsDecodeURL_Click);
             // 
             // menuToolsDecodeBase64
             // 
             this.menuToolsDecodeBase64.Name = "menuToolsDecodeBase64";
-            this.menuToolsDecodeBase64.Size = new System.Drawing.Size(129, 24);
+            this.menuToolsDecodeBase64.Size = new System.Drawing.Size(113, 22);
             this.menuToolsDecodeBase64.Text = "Base 64";
             this.menuToolsDecodeBase64.Click += new System.EventHandler(this.menuToolsDecodeBase64_Click);
             // 
             // menuToolsDecodeHTML
             // 
             this.menuToolsDecodeHTML.Name = "menuToolsDecodeHTML";
-            this.menuToolsDecodeHTML.Size = new System.Drawing.Size(129, 24);
+            this.menuToolsDecodeHTML.Size = new System.Drawing.Size(113, 22);
             this.menuToolsDecodeHTML.Text = "HTML";
             this.menuToolsDecodeHTML.Click += new System.EventHandler(this.menuToolsDecodeHTML_Click);
             // 
@@ -305,85 +297,85 @@
             this.menuToolsEncodeBase64,
             this.menuToolsEncodeHTML});
             this.menuToolsEncode.Name = "menuToolsEncode";
-            this.menuToolsEncode.Size = new System.Drawing.Size(198, 24);
+            this.menuToolsEncode.Size = new System.Drawing.Size(170, 22);
             this.menuToolsEncode.Text = "Encode";
             // 
             // menuToolsEncodeURL
             // 
             this.menuToolsEncodeURL.Name = "menuToolsEncodeURL";
-            this.menuToolsEncodeURL.Size = new System.Drawing.Size(129, 24);
+            this.menuToolsEncodeURL.Size = new System.Drawing.Size(113, 22);
             this.menuToolsEncodeURL.Text = "URL";
             this.menuToolsEncodeURL.Click += new System.EventHandler(this.menuToolsEncodeURL_Click);
             // 
             // menuToolsEncodeBase64
             // 
             this.menuToolsEncodeBase64.Name = "menuToolsEncodeBase64";
-            this.menuToolsEncodeBase64.Size = new System.Drawing.Size(129, 24);
+            this.menuToolsEncodeBase64.Size = new System.Drawing.Size(113, 22);
             this.menuToolsEncodeBase64.Text = "Base 64";
             this.menuToolsEncodeBase64.Click += new System.EventHandler(this.menuToolsEncodeBase64_Click);
             // 
             // menuToolsEncodeHTML
             // 
             this.menuToolsEncodeHTML.Name = "menuToolsEncodeHTML";
-            this.menuToolsEncodeHTML.Size = new System.Drawing.Size(129, 24);
+            this.menuToolsEncodeHTML.Size = new System.Drawing.Size(113, 22);
             this.menuToolsEncodeHTML.Text = "HTML";
             this.menuToolsEncodeHTML.Click += new System.EventHandler(this.menuToolsEncodeHTML_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(195, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(167, 6);
             // 
             // menuToolsDeflate
             // 
             this.menuToolsDeflate.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuToolsDeflateDecompress});
             this.menuToolsDeflate.Name = "menuToolsDeflate";
-            this.menuToolsDeflate.Size = new System.Drawing.Size(198, 24);
+            this.menuToolsDeflate.Size = new System.Drawing.Size(170, 22);
             this.menuToolsDeflate.Text = "Deflate";
             // 
             // menuToolsDeflateDecompress
             // 
             this.menuToolsDeflateDecompress.Name = "menuToolsDeflateDecompress";
-            this.menuToolsDeflateDecompress.Size = new System.Drawing.Size(160, 24);
+            this.menuToolsDeflateDecompress.Size = new System.Drawing.Size(139, 22);
             this.menuToolsDeflateDecompress.Text = "Decompress";
             this.menuToolsDeflateDecompress.Click += new System.EventHandler(this.menuToolsDeflateDecompress_Click);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(195, 6);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(167, 6);
             // 
             // menuToolsSignature
             // 
             this.menuToolsSignature.Name = "menuToolsSignature";
-            this.menuToolsSignature.Size = new System.Drawing.Size(198, 24);
+            this.menuToolsSignature.Size = new System.Drawing.Size(170, 22);
             this.menuToolsSignature.Text = "Check Signature";
             this.menuToolsSignature.Click += new System.EventHandler(this.menuToolsSignature_Click);
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(195, 6);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(167, 6);
             // 
             // menuToolsTransform
             // 
             this.menuToolsTransform.Name = "menuToolsTransform";
-            this.menuToolsTransform.Size = new System.Drawing.Size(198, 24);
+            this.menuToolsTransform.Size = new System.Drawing.Size(170, 22);
             this.menuToolsTransform.Text = "Apply XSLT...";
             this.menuToolsTransform.Click += new System.EventHandler(this.menuToolsTransform_Click);
             // 
             // menuToolsTestXPath
             // 
             this.menuToolsTestXPath.Name = "menuToolsTestXPath";
-            this.menuToolsTestXPath.Size = new System.Drawing.Size(198, 24);
+            this.menuToolsTestXPath.Size = new System.Drawing.Size(170, 22);
             this.menuToolsTestXPath.Text = "Test XPath...";
             this.menuToolsTestXPath.Click += new System.EventHandler(this.menuToolsTestXPath_Click);
             // 
             // menuToolsSchemaValidate
             // 
             this.menuToolsSchemaValidate.Name = "menuToolsSchemaValidate";
-            this.menuToolsSchemaValidate.Size = new System.Drawing.Size(198, 24);
+            this.menuToolsSchemaValidate.Size = new System.Drawing.Size(170, 22);
             this.menuToolsSchemaValidate.Text = "Schema Validate...";
             this.menuToolsSchemaValidate.Click += new System.EventHandler(this.menuToolsSchemaValidate_Click);
             // 
@@ -393,21 +385,21 @@
             this.menuFormatWordWrap,
             this.menuFormatIndent});
             this.menuFormat.Name = "menuFormat";
-            this.menuFormat.Size = new System.Drawing.Size(68, 24);
+            this.menuFormat.Size = new System.Drawing.Size(57, 20);
             this.menuFormat.Text = "Format";
             // 
             // menuFormatWordWrap
             // 
             this.menuFormatWordWrap.CheckOnClick = true;
             this.menuFormatWordWrap.Name = "menuFormatWordWrap";
-            this.menuFormatWordWrap.Size = new System.Drawing.Size(155, 24);
+            this.menuFormatWordWrap.Size = new System.Drawing.Size(134, 22);
             this.menuFormatWordWrap.Text = "Word Wrap";
             this.menuFormatWordWrap.Click += new System.EventHandler(this.menuFormatWordWrap_Click);
             // 
             // menuFormatIndent
             // 
             this.menuFormatIndent.Name = "menuFormatIndent";
-            this.menuFormatIndent.Size = new System.Drawing.Size(155, 24);
+            this.menuFormatIndent.Size = new System.Drawing.Size(134, 22);
             this.menuFormatIndent.Text = "Indent";
             this.menuFormatIndent.Click += new System.EventHandler(this.menuFormatIndent_Click);
             // 
@@ -416,13 +408,13 @@
             this.menuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuHelpAbout});
             this.menuHelp.Name = "menuHelp";
-            this.menuHelp.Size = new System.Drawing.Size(53, 24);
+            this.menuHelp.Size = new System.Drawing.Size(44, 20);
             this.menuHelp.Text = "Help";
             // 
             // menuHelpAbout
             // 
             this.menuHelpAbout.Name = "menuHelpAbout";
-            this.menuHelpAbout.Size = new System.Drawing.Size(188, 24);
+            this.menuHelpAbout.Size = new System.Drawing.Size(152, 22);
             this.menuHelpAbout.Text = "About XHelper";
             this.menuHelpAbout.Click += new System.EventHandler(this.menuHelpAbout_Click);
             // 
@@ -432,11 +424,12 @@
             this.textData.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textData.Location = new System.Drawing.Point(0, 31);
+            this.textData.Location = new System.Drawing.Point(0, 25);
+            this.textData.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textData.Multiline = true;
             this.textData.Name = "textData";
             this.textData.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textData.Size = new System.Drawing.Size(1262, 642);
+            this.textData.Size = new System.Drawing.Size(948, 522);
             this.textData.TabIndex = 9;
             this.textData.TextChanged += new System.EventHandler(this.textData_TextChanged);
             this.textData.DragDrop += new System.Windows.Forms.DragEventHandler(this.textData_DragDrop);
@@ -446,12 +439,13 @@
             // 
             // XHelper
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1262, 675);
+            this.ClientSize = new System.Drawing.Size(946, 548);
             this.Controls.Add(this.textData);
             this.Controls.Add(this.menuStripXHelper);
             this.MainMenuStrip = this.menuStripXHelper;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "XHelper";
             this.Text = "XHelper";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.XHelper_FormClosing);
@@ -503,7 +497,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuEditDelete;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
         private System.Windows.Forms.ToolStripMenuItem menuEditFind;
-        private System.Windows.Forms.ToolStripMenuItem menuEditFindNext;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem8;
         private System.Windows.Forms.ToolStripMenuItem menuEditSelectAll;
         private System.Windows.Forms.ToolStripMenuItem menuEditTimeDate;

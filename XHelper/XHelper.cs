@@ -177,6 +177,86 @@ namespace XHelper
 
         #endregion
 
+        #region Edit Menu
+
+        private void menuEditUndo_Click(object sender, EventArgs e)
+        {
+            textData.Undo();
+        }
+
+        private void menuEditCut_Click(object sender, EventArgs e)
+        {
+            textData.Cut();
+        }
+
+        private void menuEditCopy_Click(object sender, EventArgs e)
+        {
+            textData.Copy();
+        }
+
+        private void menuEditPaste_Click(object sender, EventArgs e)
+        {
+            textData.Paste();
+        }
+
+        private void menuEditDelete_Click(object sender, EventArgs e)
+        {
+            textData.SelectedText = "";
+        }
+
+        private void menuEditFind_Click(object sender, EventArgs e)
+        {
+            if (xFind == null)
+            {
+                xFind = new XFind();
+                xFind.FindNext += new FindNextEventHandler(findNext_Click);
+                xFind.Cancel += new CancelEventHandler(findCancel_Click);
+                xFind.Close += new CloseEventHandler(findClose_Click);
+            }
+            xFind.Show();
+        }
+
+        private void menuEditSelectAll_Click(object sender, EventArgs e)
+        {
+            textData.SelectAll();
+        }
+
+        private void menuEditTimeDate_Click(object sender, EventArgs e)
+        {
+            textData.SelectedText = DateTime.Now.ToString();
+        }
+
+        private void menuToolsSchemaValidate_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Schema files (*.xsd)|*.xsd|All files (*.*)|*.*";
+            openFileDialog.FilterIndex = 1;
+            openFileDialog.RestoreDirectory = true;
+            openFileDialog.Title = "Select Schema";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    XSchemaValidator xsv = new XSchemaValidator();
+                    if (!xsv.XValidate(this.textData.Text, null, openFileDialog.FileName))
+                    {
+                        MessageBox.Show(xsv.ValidationError);
+                    }
+                    else
+                    {
+                        MessageBox.Show("The XML is valid against this schema.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ShowError(ex);
+                }
+            }
+        }
+
+        #endregion
+
         #region Tools Menu
 
         private void menuToolsDecodeURL_Click(object sender, EventArgs e)
@@ -424,6 +504,41 @@ namespace XHelper
             }
         }
 
+        private static string DeflateDecompress(string text)
+        {
+            byte[] bytesToInflate;
+            bytesToInflate = Convert.FromBase64String(text);
+
+            string inflatedBase64String;
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                using (DeflateStream inflateStream = new DeflateStream(memoryStream, CompressionMode.Decompress, true))
+                {
+                    using (StreamReader streamReader = new StreamReader(inflateStream))
+                    {
+                        memoryStream.Write(bytesToInflate, 0, bytesToInflate.Length);
+                        memoryStream.Flush();
+                        memoryStream.Seek(0, SeekOrigin.Begin);
+
+                        inflatedBase64String = streamReader.ReadToEnd();
+                    }
+                }
+            }
+            return inflatedBase64String;
+        }
+
+        private void menuToolsDeflateDecompress_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                textData.Text = DeflateDecompress(textData.Text);
+            }
+            catch (Exception ex)
+            {
+                ShowError(ex);
+            }
+        }
+
         public DialogResult FileSavePrompt()
         {
             DialogResult messageBoxResponse = DialogResult.Cancel;
@@ -523,85 +638,16 @@ namespace XHelper
 
         #endregion
 
-        private void menuEditUndo_Click(object sender, EventArgs e)
-        {
-            textData.Undo();
-        }
+        #region Find Functions
 
-        private void menuEditCut_Click(object sender, EventArgs e)
-        {
-            textData.Cut();
-        }
-
-        private void menuEditCopy_Click(object sender, EventArgs e)
-        {
-            textData.Copy();
-        }
-
-        private void menuEditPaste_Click(object sender, EventArgs e)
-        {
-            textData.Paste();
-        }
-
-        private void menuEditDelete_Click(object sender, EventArgs e)
-        {
-            textData.SelectedText = "";
-        }
-
-        private void menuEditFind_Click(object sender, EventArgs e)
-        {
-            if(xFind == null)
-            {
-                xFind = new XFind();
-                xFind.FindNext += new FindNextEventHandler(menuEditFindNext_Click);
-                xFind.Cancel += new CancelEventHandler(findCancel_Click);
-                xFind.Close += new CloseEventHandler(findClose_Click);
-            }
-            xFind.Show();
-        }
-
-        private void menuEditFindNext_Click(object sender, EventArgs e)
+        private void findNext_Click(object sender, EventArgs e)
         {
             if (xFind == null) { return; }
 
             // Build new index if first time clicked or search term / case changed
             if (searchTerm == null || searchTerm != xFind.FindString || matchCase != xFind.MatchCase)
             {
-                searchTerm = xFind.FindString;
-                matchCase = xFind.MatchCase;
-
-                int searchIndex = 0;
-                int foundIndex = 0;
-                positionsList = new List<int>();
-
-                while (searchIndex + searchTerm.Length <= textData.Text.Length)
-                {
-                    // Get index of next occurrence of search term
-                    if (matchCase)
-                    {
-                        foundIndex = textData.Text.IndexOf(searchTerm, searchIndex);
-                    }
-                    else
-                    {
-                        foundIndex = textData.Text.ToLower().IndexOf(searchTerm.ToLower(), searchIndex);
-                    }
-
-                    // Add any occurence to positionsList
-                    if (foundIndex == -1)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        positionsList.Add(foundIndex);
-                        searchIndex = foundIndex + searchTerm.Length;
-                    }
-
-                }
-
-                // reset pointer to display first/last occurence in list
-                currentIndex = 0;
-
+                buildFindIndex();
             }
 
             // If positions list empty, display warning
@@ -611,8 +657,9 @@ namespace XHelper
                 return;
             }
 
-            // Select next found item
+            // Change focus to text window
             textData.Focus();
+            //xFind.Opacity = 0.65;
 
             if (xFind.SearchDown)
             {
@@ -627,6 +674,44 @@ namespace XHelper
 
         }
 
+        private void buildFindIndex()
+        {
+            searchTerm = xFind.FindString;
+            matchCase = xFind.MatchCase;
+
+            int searchIndex = 0;
+            int foundIndex = 0;
+            positionsList = new List<int>();
+
+            while (searchIndex + searchTerm.Length <= textData.Text.Length)
+            {
+                // Get index of next occurrence of search term
+                if (matchCase)
+                {
+                    foundIndex = textData.Text.IndexOf(searchTerm, searchIndex);
+                }
+                else
+                {
+                    foundIndex = textData.Text.ToLower().IndexOf(searchTerm.ToLower(), searchIndex);
+                }
+
+                // Add any occurence to positionsList
+                if (foundIndex == -1)
+                {
+                    break;
+                }
+                else
+                {
+                    positionsList.Add(foundIndex);
+                    searchIndex = foundIndex + searchTerm.Length;
+                }
+
+            }
+
+            // reset pointer to display first/last occurence in list
+            currentIndex = 0;
+
+        }
 
         private void findCancel_Click(object sender, EventArgs e)
         {
@@ -641,83 +726,13 @@ namespace XHelper
         {
             if (xFind != null)
             {
-                //xFind = null;
-                xFind.Hide();
+                xFind = null;
+                //xFind.Hide();
             }
         }
+
+        #endregion
+
         
-        private void menuEditSelectAll_Click(object sender, EventArgs e)
-        {
-            textData.SelectAll();
-        }
-
-        private void menuEditTimeDate_Click(object sender, EventArgs e)
-        {
-            textData.SelectedText = DateTime.Now.ToString();
-        }
-
-        private void menuToolsSchemaValidate_Click(object sender, EventArgs e)
-        {
-                OpenFileDialog openFileDialog = new OpenFileDialog();
-                openFileDialog.Filter = "Schema files (*.xsd)|*.xsd|All files (*.*)|*.*";
-                openFileDialog.FilterIndex = 1;
-                openFileDialog.RestoreDirectory = true;
-                openFileDialog.Title = "Select Schema";
-
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    try
-                    {
-                        XSchemaValidator xsv = new XSchemaValidator();
-                        if (!xsv.XValidate(this.textData.Text, null, openFileDialog.FileName))
-                        {
-                            MessageBox.Show(xsv.ValidationError);
-                        }
-                        else
-                        {
-                            MessageBox.Show("The XML is valid against this schema.");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        ShowError(ex);
-                    }
-                }
-        }
-
-        private static string DeflateDecompress(string text)
-        {
-            byte[] bytesToInflate;
-            bytesToInflate = Convert.FromBase64String(text);
-
-            string inflatedBase64String;
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                using (DeflateStream inflateStream = new DeflateStream(memoryStream, CompressionMode.Decompress, true))
-                {
-                    using (StreamReader streamReader = new StreamReader(inflateStream))
-                    {
-                        memoryStream.Write(bytesToInflate, 0, bytesToInflate.Length);
-                        memoryStream.Flush();
-                        memoryStream.Seek(0, SeekOrigin.Begin);
-
-                        inflatedBase64String = streamReader.ReadToEnd();
-                    }
-                }
-            }
-            return inflatedBase64String;
-        }
-
-        private void menuToolsDeflateDecompress_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                textData.Text = DeflateDecompress(textData.Text);
-            }
-            catch (Exception ex)
-            {
-                ShowError(ex);
-            }
-        }
     }
 }
